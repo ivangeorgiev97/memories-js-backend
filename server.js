@@ -37,13 +37,13 @@ async function startServer() {
   });
   await server.start();
 
-  const expressApp = express();
+  const app = express();
 
-  server.applyMiddleware({ expressApp });
-  await new Promise(resolve => expressApp.listen({ port: process.env.PORT }, resolve));
-  console.log(`🚀 Server ready- http://localhost:${process.env.PORT}${server.graphqlPath}`);
+  server.applyMiddleware({ app });
+  await new Promise(resolve => app.listen({ port: process.env.PORT }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`);
 
-  return { server, expressApp };
+  return { server, app };
 }
 
 startServer();
