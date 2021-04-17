@@ -12,6 +12,7 @@ export const getContext = async (req, token) => {
 
     const matchedUser = await User.findById(userData._id).lean();
     delete matchedUser.password;
+
     const context = {
         matchedUser
     };

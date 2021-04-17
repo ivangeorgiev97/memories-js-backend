@@ -10,7 +10,11 @@ const UserSchema = new Schema ({
         type: String,
         min: 5,
         max: 255
-    }
+    },
+    memories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Memory'
+    }],
 })
 
 const User = mongoose.model("User", UserSchema);

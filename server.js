@@ -37,7 +37,7 @@ async function startServer() {
   const expressApp = express();
   server.expressApplyMiddleware({ expressApp });
   await new Promise(resolve => expressApp.listen({ port: process.env.PORT }, resolve));
-  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`);
+  console.log(`🚀 Server ready- http://localhost:${process.env.PORT}${server.graphqlPath}`);
   return { server, expressApp };
 }
 
