@@ -1,5 +1,5 @@
 import express from "express";
-import {ApolloServer} from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import dotenv from "dotenv";
 import schema from "./graphql/gql-schema.js";
 import { getContext } from "./helpers/context.js";
@@ -11,6 +11,7 @@ dotenv.config();
 
 const dbUrl = process.env.MONGODB_URL;
 
+// mongoose connection
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     autoIndex: true,
@@ -37,9 +38,11 @@ async function startServer() {
   await server.start();
 
   const expressApp = express();
-  server.expressApplyMiddleware({ expressApp });
+
+  server.applyMiddleware({ expressApp });
   await new Promise(resolve => expressApp.listen({ port: process.env.PORT }, resolve));
   console.log(`🚀 Server ready- http://localhost:${process.env.PORT}${server.graphqlPath}`);
+
   return { server, expressApp };
 }
 
