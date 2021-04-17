@@ -3,12 +3,14 @@ export default `
     input UserInput {
         email: String!
         password: String!
+        memories: [String]
     }
 
     type User {
         _id: String!
         email: String!
         password: String!
+        memories: [Memory]
     }
 
     type Query {

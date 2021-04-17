@@ -31,6 +31,8 @@ async function startServer() {
       return context;
     },
     formatErr,
+    introspection: true,
+    playground: true
   });
   await server.start();
 

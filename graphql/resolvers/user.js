@@ -13,11 +13,11 @@ export default {
             return context.user;
         },
         user: async (root, {_id}) => {
-            const user = await User.findById(_id);
+            const user = await User.findById(_id).populate("memories");
             return user;
         },
         users: async () => {
-            const users = await User.find({});
+            const users = await User.find({}).populate("memories");
             return users;
         }
     },
@@ -52,7 +52,7 @@ export default {
                 {
                     runValidators: true,
                     new: true,
-                });
+                }).populate("memories");
             return updatedUser;
         },
         deleteUser: async(root, {_id}) => {
@@ -62,7 +62,7 @@ export default {
         login: async(root, {email, password}) => {
             const user = await User.findOne({email});
             if(!user){
-                throw new UserInputError(`cannot find user with email: ${email}`, {
+                throw new UserInputError(`User with this email does nto exist: ${email}`, {
                     field: "email",
                     value: email,
                     constraint: "emailDoesNotExist",
