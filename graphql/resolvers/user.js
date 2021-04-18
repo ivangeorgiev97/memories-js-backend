@@ -88,7 +88,7 @@ export default {
 
             return token;
         }
-        // TODO: Add logout functionality
+        // TODO: Add logout functionality - save used tokens somewhere
         /* logout: async(root, args, context) => {
             logout logic
         } */

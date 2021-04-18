@@ -11,6 +11,7 @@ const UserSchema = new Schema ({
         min: 5,
         max: 255
     },
+    roles: [],
     memories: [{
         type: Schema.Types.ObjectId,
         ref: 'Memory'

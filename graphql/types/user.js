@@ -3,6 +3,7 @@ export default `
     input UserInput {
         email: String!
         password: String!
+        roles: [String]
         memories: [String]
     }
 
@@ -11,6 +12,7 @@ export default `
         email: String!
         password: String!
         memories: [Memory]
+        roles: [String]
     }
 
     type Query {
