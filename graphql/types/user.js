@@ -22,7 +22,7 @@ export default `
     }
 
     type Mutation {
-        createUser(data: UserInput!): User
+        register(data: UserInput!): User
         updateUser(_id: String!, data: UserInput!): User
         deleteUser(_id: String!): User
         login(email: String!, password: String!): String

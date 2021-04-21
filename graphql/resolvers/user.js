@@ -22,7 +22,7 @@ export default {
         }
     },
     Mutation: {
-        createUser: async(root, args) => {
+        register: async(root, args) => {
             const userData = args.data;
             if(!validator.isEmail(userData.email)){
                 throw new UserInputError(`This email is not valid`, {
@@ -87,11 +87,10 @@ export default {
             });
 
             return token;
+        },
+        logout: async(root, args, context) => {
+            // TODO- Add token to expired tokens
         }
-        // TODO: Add logout functionality - save used tokens somewhere
-        /* logout: async(root, args, context) => {
-            logout logic
-        } */
     }
 
 }

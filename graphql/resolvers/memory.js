@@ -29,7 +29,7 @@ export default {
         deleteMemory: async(root, {_id}) => {
             const memory = Memory.findOneAndDelete(_id);
             return memory;
-        },
+        }
     }
 
 }
