@@ -28,7 +28,7 @@ export default {
                 throw new UserInputError(`This email is not valid`, {
                     field: "email",
                     value: userData.email,
-                    constraint: "isEmail",
+                    constraint: "isEmail"
                 })
             }
 
@@ -36,7 +36,7 @@ export default {
                 throw new UserInputError(`Password should be between 5 and 255 symbols`, {
                     field: "password",
                     value: userData.password,
-                    constraint: "isLength",
+                    constraint: "isLength"
                 })
             }
 
@@ -51,7 +51,7 @@ export default {
                 {$set: data},
                 {
                     runValidators: true,
-                    new: true,
+                    new: true
                 }).populate("memories");
             return updatedUser;
         },
@@ -65,7 +65,7 @@ export default {
                 throw new UserInputError(`User with this email does nto exist: ${email}`, {
                     field: "email",
                     value: email,
-                    constraint: "emailDoesNotExist",
+                    constraint: "emailDoesNotExist"
                 })
             }
 
@@ -74,14 +74,14 @@ export default {
                 throw new UserInputError(`Password is incorrect`, {
                     field: "password",
                     value: "",
-                    constraint: "passwordIncorrect",
+                    constraint: "passwordIncorrect"
                 })
             }
 
             const privateKey = process.env.JWT_PRIVATE_KEY;
             const token = jwt.sign({
                 _id: user._id,
-                email: user.email,
+                email: user.email
             }, privateKey, {
                 expiresIn: "1d"
             });
@@ -89,7 +89,7 @@ export default {
             return token;
         },
         logout: async(root, args, context) => {
-            // TODO- Add token to expired tokens
+            // TODO- Add token to used tokens
         }
     }
 

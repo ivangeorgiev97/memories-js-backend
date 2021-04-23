@@ -22,7 +22,7 @@ export default {
                 {$set: data},
                 {
                     new: true,
-                    runValidators: true,
+                    runValidators: true
                 })
             return memory;
         },
