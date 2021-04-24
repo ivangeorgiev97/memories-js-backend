@@ -27,7 +27,7 @@ export default {
             return memory;
         },
         deleteMemory: async(root, {_id}) => {
-            const memory = Memory.findOneAndDelete(_id);
+            const memory = Memory.findByIdAndDelete(_id);
             return memory;
         }
     }

@@ -57,7 +57,7 @@ export default {
             return updatedUser;
         },
         deleteUser: async (root, {_id}) => {
-            const removedUser = User.findOneAndDelete(_id);
+            const removedUser = User.findByIdAndDelete(_id);
             return removedUser;
         },
         login: async (root, {email, password}) => {
