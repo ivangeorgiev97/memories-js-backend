@@ -14,7 +14,8 @@ export const getContext = async (req, token) => {
     delete matchedUser.password;
 
     const context = {
-        matchedUser
+        matchedUser,
+        jwt
     };
 
     return context

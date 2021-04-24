@@ -4,13 +4,14 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import dotenv from "dotenv";
 import { UserInputError } from "apollo-server";
+import { getToken, addUsedToken } from "../../helpers/used-token.js";
 
 dotenv.config();
 
 export default {
     Query: {
         currentUser: async (root, args, context) => {
-            return context.user;
+            return context.matchedUser;
         },
         user: async (root, {_id}) => {
             const user = await User.findById(_id).populate("memories");
@@ -22,7 +23,7 @@ export default {
         }
     },
     Mutation: {
-        register: async(root, args) => {
+        register: async (root, args) => {
             const userData = args.data;
             if(!validator.isEmail(userData.email)){
                 throw new UserInputError(`This email is not valid`, {
@@ -46,7 +47,7 @@ export default {
             await user.save();
             return user;
         },
-        updateUser: async(root, {_id, data}) => {
+        updateUser: async (root, {_id, data}) => {
             const updatedUser = await User.findByIdAndUpdate(_id,
                 {$set: data},
                 {
@@ -55,14 +56,14 @@ export default {
                 }).populate("memories");
             return updatedUser;
         },
-        deleteUser: async(root, {_id}) => {
+        deleteUser: async (root, {_id}) => {
             const removedUser = User.findOneAndDelete(_id);
             return removedUser;
         },
-        login: async(root, {email, password}) => {
+        login: async (root, {email, password}) => {
             const user = await User.findOne({email});
             if(!user){
-                throw new UserInputError(`User with this email does nto exist: ${email}`, {
+                throw new UserInputError(`User with this email does not exist: ${email}`, {
                     field: "email",
                     value: email,
                     constraint: "emailDoesNotExist"
@@ -83,13 +84,17 @@ export default {
                 _id: user._id,
                 email: user.email
             }, privateKey, {
-                expiresIn: "1d"
+                expiresIn: "3d"
             });
 
             return token;
         },
-        logout: async(root, args, context) => {
-            // TODO- Add token to used tokens
+        logout: async (root, args, context) => {
+            const matchedToken = await getToken(context.jwt)
+
+            if (!matchedToken) addUsedToken(context.jwt);
+
+            return context.matchedUser;
         }
     }
 
