@@ -2,11 +2,11 @@ import Memory from "../../models/Memory.js";
 
 export default {
     Query: {
-        Memories: async () => {
+        memories: async () => {
             const memories = await Memory.find({});
             return memories;
         },
-        Memory: async (root, {_id}) => {
+        memory: async (root, {_id}) => {
             const memory = await Memory.findById(_id);
             return memory;
         }

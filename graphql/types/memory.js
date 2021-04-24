@@ -12,8 +12,8 @@ export default `
     }
 
     type Query {
-        Memory(_id: String!): Memory
-        Memories: [Memory]
+        memory(_id: String!): Memory
+        memories: [Memory]
     }
 
     type Mutation {
